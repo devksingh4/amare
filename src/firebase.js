@@ -1,8 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
 
-
-export function getApp() {
+export function getFirebaseApp() {
     const firebaseConfig = {
         apiKey: "AIzaSyA5PWfwZi3KJY_mLFjbSyxDRNN1P6o2q08",
         authDomain: "amare-650e9.firebaseapp.com",

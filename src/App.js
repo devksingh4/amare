@@ -1,48 +1,60 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import { getApp } from './firebase'
-import { getAuth, signInAnonymously } from "firebase/auth";
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import { getFirebaseApp } from './firebase'
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 1
+      counter: 1,
+      response: ''
     }
-    this.incrementCounter = this.incrementCounter.bind(this);
     this.addResponse = this.addResponse.bind(this);
+    this.pushToFirebase = this.pushToFirebase.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  componentDidMount() {
-    this.addResponse();
+  handleChange(event) {
+    this.setState({ response: event.target.value });
   }
-  incrementCounter() {
-    this.setState({ counter: this.state.counter += 1 })
+  async pushToFirebase(db, responseString) {
+    if (!responseString || responseString === "") {
+      return alert("Response cannot be empty!");
+    }
+    const docRef = await addDoc(collection(db, "responses"), {
+      response: responseString,
+      timestamp: new Date()
+    });
+    console.log("New document ID: ", docRef.id)
   }
-
   async addResponse() {
-    console.log("h")
-    const app = getApp();
-    const db = getFirestore()
-    const auth = getAuth();
+    if (!this.state.response || this.state.response === "") {
+      return alert("Response cannot be empty!");
+    }
+    const app = getFirebaseApp()
+    const auth = getAuth(app);
     signInAnonymously(auth)
-      .then(async () => {
-        const querySnapshot = await getDocs(collection(db, "responses"));
-        querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data()}`);
-        });
-      })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ...
+        console.error(errorCode, errorMessage)
+        return alert("There was an error submitting your response. Please try again.")
       });
-
-    // const res = await db.collection('responses').add({
-    //   response: "Test 123"
-    // })
-    // console.log(res)
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const db = getFirestore(app);
+        try {
+          await this.pushToFirebase(db, this.state.response)
+          this.setState({response: ''})
+          alert("Submitted!")
+        } catch {
+          console.error("Error submitting to Firebase.")
+          alert("There was an error submitting your response. Please try again.")
+        }
+      }
+    });
   }
 
 
@@ -51,20 +63,13 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> {this.state.counter} save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <input
+            type="text"
+            value={this.state.response}
+            onChange={this.handleChange}
+          />
           <button onClick={this.addResponse}>
-            Add to Firebase
+            Submit
           </button>
         </header>
 
