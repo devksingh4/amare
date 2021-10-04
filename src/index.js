@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Home from './Home';
+import NotFound from './NotFound';
 import reportWebVitals from './reportWebVitals';
+import {
+  HashRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+            <Router>
+            <Switch>
+                <Route path="/" exact     component={ Home } />
+                <Route path="/home" exact     component={ Home } />
+                <Route component={NotFound} />
+            </Switch>
+        </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

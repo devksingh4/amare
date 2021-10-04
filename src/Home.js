@@ -1,11 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import './Home.css';
 import React from 'react';
 import { getFirebaseApp } from './firebase'
 import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-export default class App extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
