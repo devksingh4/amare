@@ -1,6 +1,6 @@
 import './Home.css';
 import React from 'react';
-import { getFirebaseApp } from './firebase'
+import { getFirebaseApp } from '../firebase'
 import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 

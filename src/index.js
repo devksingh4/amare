@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Home from './Home';
-import NotFound from './NotFound';
+import Home from './Home/Home';
+import NotFound from './NotFound/NotFound';
 import reportWebVitals from './reportWebVitals';
 import {
   HashRouter as Router,
