@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<! -- so i kinda figured out how Github works? still working on it, here is a really rough outline on how the interface would look, its mostly html elements rn and 
+ill add more javascript later as needed for the more interactive elements but it looks pretty not great rn but dw im planning on refining it later -->
+<html>
+<style>
+
+    body {
+        background-color: #f4c2c2 ;
+        background-repeat: no-repeat;
+        background-size: 1400px 650px;
+        margin-top: 50px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    h1 {
+        color: black;
+        font-family: Georgia;
+        margin-top: 40px;
+        margin-left: 20px;
+        font-size:20pt;
+        text-align: center;
+        }
+    
+    form {
+        text-align: center; 
+        font-size:18pt; 
+        font-family: Georgia;
+    }
+
+    p {
+        text-align: center; 
+        font-size:12pt; 
+        font-family: Georgia;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    div {
+        resize: both;
+	    overflow: auto;
+	    padding-top: 20px;
+	    padding-left: 20px;
+	    padding-right: 20px;
+	    padding-bottom: 20px;
+    }
+    #container1 {
+        margin-left: 200px;
+        margin-right: 200px;
+        margin-top: 80px;
+        margin-bottom: 200px;
+        background-color: rgb(255, 223, 223) ;
+        border-radius: 70px;
+    }
+
+    #container2 {
+        background-color: #f4c2c2;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        border-radius: 10px;
+    }
+
+</style>
+<body>
+
+    <div id="container1" name="outside">
+    <div id="container2" name="inside">
+    <h1>IMSA Crushes Submission form </h1>
+
+        <p> 
+            This is a totally anonymous form that u can use to confess your true love or just say 
+            something nice about someone :) Just type how you feel and hit submit and we will post 
+            your love letter on isma crushes for your special someone to read ! There’s only a few 
+            thing to keep in mind the ensure your letter gets published : 1. keep it fairly clean !
+             (we don’t want to have to read through any harry x snape fanfic) just use your sense and
+              we’ll be all good ! 2. No bad vibes are tolerated in this house, any mean submissions will 
+              be tossed in the bin and we will send extra kisses to the person they were meant for. With 
+              that out of the way happy writing ! 
+        
+        </p>
+    </div>
+
+<div id="container2" name="inside">
+<form action="/action_page.php">
+    <label for="fname">IMSA crushes submission:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    <input type="submit" value="Submit">
+  </form> 
+</div>
+</div>
+</body>
+</html> 
